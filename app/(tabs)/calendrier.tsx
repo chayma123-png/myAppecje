@@ -2,12 +2,10 @@ import { useRouter } from 'expo-router';
 import {
   ArrowLeft,
   Bell,
-  ClipboardList,
-  Lightbulb,
   Menu,
-  Search,
-  User,
+  Search
 } from 'lucide-react-native';
+import React, { useState } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
@@ -104,8 +102,11 @@ const CalendarScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <ClipboardList color="white" size={26} />
-        </TouchableOpacity>
+         <Image
+            source={require('../../assets/images/tache.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />        </TouchableOpacity>
 
         <TouchableOpacity>
           <Image
@@ -116,11 +117,19 @@ const CalendarScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Lightbulb color="white" size={26} />
+          <Image
+            source={require('../../assets/images/projectman.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <User color="white" size={26} />
+          <Image
+          source={require('../../assets/images/user.png')}
+          style={styles.navIcon}
+          resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -231,14 +240,16 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   bottomNav: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: '#C60A0A',
+    height: 60,
+    borderRadius: 30,
     flexDirection: 'row',
-    backgroundColor: '#BD0000',
-    height: 70,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 10,
   },
   navIcon: {
     width: 24,

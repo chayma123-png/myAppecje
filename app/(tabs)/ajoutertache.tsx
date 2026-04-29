@@ -25,7 +25,7 @@ export default function LoginScreen() {
         
         {/* Logo */}
         <Image 
-          source={require('../assets/ecejelogo.png')} 
+          source={require('../../assets/images/logoeceje.png')} 
           style={styles.logo}
           resizeMode="contain"
         />

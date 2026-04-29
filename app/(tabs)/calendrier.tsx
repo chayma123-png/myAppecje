@@ -3,27 +3,16 @@ import {
   ArrowLeft,
   Bell,
   ClipboardList,
-  Home,
-  Images,
   Lightbulb,
   Menu,
   Search,
-  User
+  User,
 } from 'lucide-react-native';
-import { useState } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 
 LocaleConfig.locales['fr'] = {
-  monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juil.','Août','Septembre','Octobre','Novembre','Décembre'],
   monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
   dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
   dayNamesShort: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
@@ -47,14 +36,14 @@ const CalendarScreen = () => {
 
         <View style={styles.headerIcons}>
           <Bell color="black" size={24} style={{ marginRight: 15 }} />
-          <TouchableOpacity onPress={() => router.push(('/menu'))}>
+          <TouchableOpacity onPress={() => router.push('/menu')}>
             <Menu color="black" size={24} />
           </TouchableOpacity>
         </View>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Search bar */}w
+        {/* Search bar */}
         <View style={styles.searchContainer}>
           <Search color="#888" size={20} style={styles.searchIcon} />
           <TextInput
@@ -86,28 +75,44 @@ const CalendarScreen = () => {
 
         {/* Tasks */}
         <View style={styles.tasksContainer}>
-          <TaskSection color="red" title="Aujourd'hui" tasks={['Présentation projet']} />
-          <TaskSection color="#FFD700" title="Demain" tasks={['Développement Frontend']} />
-          <TaskSection color="#00C851" title="Cette semaine" tasks={['Tests & validation', 'Base de données']} />
+          <TaskSection
+            color="red"
+            title="Aujourd'hui"
+            tasks={['Présentation projet']}
+          />
+          <TaskSection
+            color="#FFD700"
+            title="Demain"
+            tasks={['Développement Frontend']}
+          />
+          <TaskSection
+            color="#00C851"
+            title="Cette semaine"
+            tasks={['Tests & validation', 'Base de données']}
+          />
         </View>
       </ScrollView>
 
       {/* Bottom Tab Bar */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/calendrier')}>
-          <Images
+        <TouchableOpacity onPress={() => router.push('/calandrier')}>
+          <Image
             source={require('../../assets/images/calen.png')}
             style={styles.navIcon}
             resizeMode="contain"
-          />       
-         </TouchableOpacity>
+          />
+        </TouchableOpacity>
 
-        <TouchableOpacity >
+        <TouchableOpacity>
           <ClipboardList color="white" size={26} />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Home color="white" size={26} />
+          <Image
+            source={require('../../assets/images/home.png')}
+            style={[styles.navIcon, { width: 28, height: 28 }]}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -122,7 +127,15 @@ const CalendarScreen = () => {
   );
 };
 
-const TaskSection = ({ color, title, tasks }: { color: string; title: string; tasks: string[] }) => (
+const TaskSection = ({
+  color,
+  title,
+  tasks,
+}: {
+  color: string;
+  title: string;
+  tasks: string[];
+}) => (
   <View style={styles.sectionWrapper}>
     <View style={styles.sectionHeader}>
       <View style={[styles.dot, { backgroundColor: color }]} />
@@ -226,6 +239,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingBottom: 10,
+  },
+  navIcon: {
+    width: 24,
+    height: 24,
+    tintColor: 'white',
   },
 });
 

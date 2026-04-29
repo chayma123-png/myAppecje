@@ -92,7 +92,7 @@ export default function Page2Screen() {
       {/* TAB BAR – navigation vers toutes les pages */}
       <View style={styles.tabBar}>
         {/* 👉 Clic sur l’icône calendrier ouvre la page /calendar */}
-        <TouchableOpacity onPress={() => router.push('/calendar')}>
+        <TouchableOpacity onPress={() => router.push('/calendrier')}>
           <Image
             source={require('../../assets/images/calen.png')}
             style={styles.navIcon}
@@ -108,7 +108,7 @@ export default function Page2Screen() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/home')}>
+        <TouchableOpacity onPress={() => router.push('/page2')}>
           <Image
             source={require('../../assets/images/home.png')}
             style={[styles.navIcon, { width: 28, height: 28 }]}

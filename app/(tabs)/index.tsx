@@ -32,10 +32,10 @@ export default function WelcomeScreen() {
             <Text style={styles.buttonText}>Créer un compte</Text>
           </TouchableOpacity>
 
+          {/* ✅ FIX ICI */}
           <TouchableOpacity
             style={styles.button}
-            // Redirection vers /page2
-            onPress={() => router.replace('/page2')}
+            onPress={() => router.push('/login')}
           >
             <Text style={styles.buttonText}>SE CONNECTER</Text>
           </TouchableOpacity>
@@ -47,9 +47,33 @@ export default function WelcomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  content: { flex: 1, justifyContent: 'space-between', alignItems: 'center', paddingTop: 100, paddingBottom: 25, paddingHorizontal: 15 },
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: 100,
+    paddingBottom: 25,
+    paddingHorizontal: 15,
+  },
   logo: { width: 270, height: 270 },
-  buttonRow: { flexDirection: 'row', justifyContent: 'space-between', width: '100%', gap: 12 },
-  button: { flex: 1, backgroundColor: '#C60A0A', paddingVertical: 18, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
-  buttonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '700', textAlign: 'center' },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    gap: 12,
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#C60A0A',
+    paddingVertical: 18,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
 });

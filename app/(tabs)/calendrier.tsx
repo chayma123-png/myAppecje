@@ -4,6 +4,7 @@ import {
   Bell,
   ClipboardList,
   Home,
+  Images,
   Lightbulb,
   Menu,
   Search,
@@ -94,7 +95,7 @@ const CalendarScreen = () => {
       {/* Bottom Tab Bar */}
       <View style={styles.bottomNav}>
         <TouchableOpacity onPress={() => router.push('/(tabs)/calendrier')}>
-          <Image
+          <Images
             source={require('../../assets/images/calen.png')}
             style={styles.navIcon}
             resizeMode="contain"

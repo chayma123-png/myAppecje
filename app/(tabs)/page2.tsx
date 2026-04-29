@@ -9,7 +9,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 
 export default function Page2Screen() {
@@ -31,7 +31,12 @@ export default function Page2Screen() {
           resizeMode="contain"
         />
         <View style={styles.headerIcons}>
-          <Ionicons name="notifications-outline" size={24} color="black" style={{ marginRight: 15 }} />
+          <Ionicons
+            name="notifications-outline"
+            size={24}
+            color="black"
+            style={{ marginRight: 15 }}
+          />
           <TouchableOpacity onPress={() => router.push('/(tabs)/menu')}>
             <Ionicons name="menu" size={28} color="black" />
           </TouchableOpacity>
@@ -40,8 +45,16 @@ export default function Page2Screen() {
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.searchSection}>
-          <Feather name="search" size={20} color="#999" style={styles.searchIcon} />
-          <TextInput style={styles.searchInput} placeholder="chercher..." />
+          <Feather
+            name="search"
+            size={20}
+            color="#999"
+            style={styles.searchIcon}
+          />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="chercher..."
+          />
         </View>
 
         <Text style={styles.welcomeText}>Bonjour Foulen !</Text>
@@ -50,7 +63,9 @@ export default function Page2Screen() {
           <View key={index} style={styles.card}>
             <View style={styles.cardLeft}>
               <Text style={styles.cardTitle}>{card.title}</Text>
-              {card.sub !== '' && <Text style={styles.cardSub}>{card.sub}</Text>}
+              {card.sub !== '' && (
+                <Text style={styles.cardSub}>{card.sub}</Text>
+              )}
             </View>
             <View style={styles.cardRight}>
               {card.icon && (
@@ -74,27 +89,47 @@ export default function Page2Screen() {
         ))}
       </ScrollView>
 
-      {/* TAB BAR */}
+      {/* TAB BAR – navigation vers toutes les pages */}
       <View style={styles.tabBar}>
+        {/* 👉 Clic sur l’icône calendrier ouvre la page /calendar */}
         <TouchableOpacity onPress={() => router.push('/calendar')}>
-          <Image source={require('../../assets/images/calen.png')} style={styles.navIcon} resizeMode="contain" />
+          <Image
+            source={require('../../assets/images/calen.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.push('/taches')}>
-          <Image source={require('../../assets/images/tache.png')} style={styles.navIcon} resizeMode="contain" />
+          <Image
+            source={require('../../assets/images/tache.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.push('/home')}>
-          <Image source={require('../../assets/images/home.png')} style={[styles.navIcon, { width: 28, height: 28 }]} resizeMode="contain" />
+          <Image
+            source={require('../../assets/images/home.png')}
+            style={[styles.navIcon, { width: 28, height: 28 }]}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.push('/settings')}>
-          <Image source={require('../../assets/images/projectman.png')} style={styles.navIcon} resizeMode="contain" />
+          <Image
+            source={require('../../assets/images/projectman.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
-        {/* ✅ FIX ICI */}
         <TouchableOpacity onPress={() => router.push('/profile')}>
-          <Image source={require('../../assets/images/user.png')} style={styles.navIcon} resizeMode="contain" />
+          <Image
+            source={require('../../assets/images/user.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -103,15 +138,46 @@ export default function Page2Screen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, height: 60 },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    height: 60,
+  },
   logo: { width: 90, height: 40 },
   headerIcons: { flexDirection: 'row', alignItems: 'center' },
   content: { paddingHorizontal: 20, paddingBottom: 100 },
-  searchSection: { flexDirection: 'row', backgroundColor: '#F0F0F0', borderRadius: 20, alignItems: 'center', paddingHorizontal: 15, height: 40, marginVertical: 20 },
+  searchSection: {
+    flexDirection: 'row',
+    backgroundColor: '#F0F0F0',
+    borderRadius: 20,
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    height: 40,
+    marginVertical: 20,
+  },
   searchIcon: { marginRight: 10 },
   searchInput: { flex: 1, fontSize: 14 },
-  welcomeText: { fontSize: 26, fontWeight: 'bold', color: '#1A3050', marginBottom: 25 },
-  card: { backgroundColor: '#E8E8E8', borderRadius: 20, padding: 20, flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15, elevation: 2, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 2 },
+  welcomeText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#1A3050',
+    marginBottom: 25,
+  },
+  card: {
+    backgroundColor: '#E8E8E8',
+    borderRadius: 20,
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 15,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
   cardLeft: { flex: 1 },
   cardTitle: { fontSize: 18, fontWeight: 'bold', color: '#000' },
   cardSub: { fontSize: 14, color: '#666', marginTop: 5 },
@@ -119,6 +185,17 @@ const styles = StyleSheet.create({
   cardIcon: { marginBottom: 10 },
   voirPlus: { flexDirection: 'row', alignItems: 'center' },
   voirPlusText: { fontSize: 14, fontWeight: '600', marginRight: 5 },
-  tabBar: { position: 'absolute', bottom: 20, left: 20, right: 20, backgroundColor: '#C60A0A', height: 60, borderRadius: 30, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' },
+  tabBar: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: '#C60A0A',
+    height: 60,
+    borderRadius: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   navIcon: { width: 24, height: 24, tintColor: 'white' },
 });

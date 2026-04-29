@@ -30,7 +30,7 @@ export default function LoginScreen() {
       
       {/* Logo */}
       <Image
-        source={require('../assets/images/logo.png')} // change if needed
+        source={require('../../assets/images/logoeceje.png')} // change if needed
         style={styles.logo}
         resizeMode="contain"
       />

@@ -2,13 +2,12 @@ import { useRouter } from 'expo-router';
 import {
   ArrowLeft,
   Bell,
-  Calendar as CalendarIcon,
   ClipboardList,
   Home,
   Lightbulb,
   Menu,
   Search,
-  User,
+  User
 } from 'lucide-react-native';
 import { useState } from 'react';
 import {
@@ -94,11 +93,15 @@ const CalendarScreen = () => {
 
       {/* Bottom Tab Bar */}
       <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/calendar')}>
-          <CalendarIcon color="white" size={26} />
-        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/(tabs)/calendrier')}>
+          <Image
+            source={require('../../assets/images/calen.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />       
+         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity >
           <ClipboardList color="white" size={26} />
         </TouchableOpacity>
 

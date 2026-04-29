@@ -106,7 +106,7 @@ const CalendarScreen = () => {
             source={require('../../assets/images/tache.png')}
             style={styles.navIcon}
             resizeMode="contain"
-          />        </TouchableOpacity>
+          />  </TouchableOpacity>
 
         <TouchableOpacity>
           <Image

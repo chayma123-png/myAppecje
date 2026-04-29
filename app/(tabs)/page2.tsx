@@ -100,7 +100,7 @@ export default function Page2Screen() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/taches')}>
+        <TouchableOpacity onPress={() => router.push('/mestaches')}>
           <Image
             source={require('../../assets/images/tache.png')}
             style={styles.navIcon}

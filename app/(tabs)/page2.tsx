@@ -54,10 +54,18 @@ export default function Page2Screen() {
             </View>
             <View style={styles.cardRight}>
               {card.icon && (
-                <MaterialCommunityIcons name={card.icon} size={30} color="#333" style={styles.cardIcon} />
+                <MaterialCommunityIcons
+                  name={card.icon}
+                  size={30}
+                  color="#333"
+                  style={styles.cardIcon}
+                />
               )}
-              {/* Le lien vers les tâches reste identique */}
-              <TouchableOpacity style={styles.voirPlus} onPress={() => router.push('/taches')}>
+
+              <TouchableOpacity
+                style={styles.voirPlus}
+                onPress={() => router.push('/taches')}
+              >
                 <Text style={styles.voirPlusText}>voir plus</Text>
                 <Ionicons name="caret-forward" size={16} color="black" />
               </TouchableOpacity>
@@ -66,20 +74,34 @@ export default function Page2Screen() {
         ))}
       </ScrollView>
 
-      {/* Barre de navigation */}
+      {/* TAB BAR */}
       <View style={styles.tabBar}>
-        <TouchableOpacity onPress={() => router.push('/calendar')}><Image source={require('../../assets/images/calen.png')} style={styles.navIcon} resizeMode="contain" /></TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/taches')}><Image source={require('../../assets/images/tache.png')} style={styles.navIcon} resizeMode="contain" /></TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/home')}><Image source={require('../../assets/images/home.png')} style={[styles.navIcon, { width: 28, height: 28 }]} resizeMode="contain" /></TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/settings')}><Image source={require('../../assets/images/projectman.png')} style={styles.navIcon} resizeMode="contain" /></TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/signup')}><Image source={require('../../assets/images/user.png')} style={styles.navIcon} resizeMode="contain" /></TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/calendar')}>
+          <Image source={require('../../assets/images/calen.png')} style={styles.navIcon} resizeMode="contain" />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push('/taches')}>
+          <Image source={require('../../assets/images/tache.png')} style={styles.navIcon} resizeMode="contain" />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push('/home')}>
+          <Image source={require('../../assets/images/home.png')} style={[styles.navIcon, { width: 28, height: 28 }]} resizeMode="contain" />
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.push('/settings')}>
+          <Image source={require('../../assets/images/projectman.png')} style={styles.navIcon} resizeMode="contain" />
+        </TouchableOpacity>
+
+        {/* ✅ FIX ICI */}
+        <TouchableOpacity onPress={() => router.push('/profile')}>
+          <Image source={require('../../assets/images/user.png')} style={styles.navIcon} resizeMode="contain" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  // (styles identiques, pas de changement)
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, height: 60 },
   logo: { width: 90, height: 40 },

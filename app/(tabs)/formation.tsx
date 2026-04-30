@@ -44,8 +44,11 @@ export default function FormationsScreen() {
       {/* ✅ NAV BAR FIXED (no external component) */}
       <View style={styles.tabBar}>
         <TouchableOpacity onPress={() => router.push('/calendrier')}>
-          <Text style={styles.icon}>📅</Text>
-        </TouchableOpacity>
+        <Image
+            source={require('../../assets/images/calen.png')}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />        </TouchableOpacity>
 
         <TouchableOpacity onPress={() => router.push('/mestaches')}>
           <Text style={styles.icon}>📋</Text>
@@ -55,10 +58,7 @@ export default function FormationsScreen() {
           <Text style={styles.icon}>🏠</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/settings')}>
-          <Text style={styles.icon}>⚙️</Text>
-        </TouchableOpacity>
-
+    
         <TouchableOpacity onPress={() => router.push('/profile')}>
           <Text style={styles.icon}>👤</Text>
         </TouchableOpacity>

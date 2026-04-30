@@ -1,7 +1,9 @@
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
   Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -10,104 +12,258 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
+} from "react-native";
 
-const RED = '#c0392b';
-const NAVY = '#1a2340';
-const BG = '#f4f5f8';
-const WHITE = '#fff';
-const CARD_BORDER = '#e0e3ea';
-
-const STATS = [
-  { key: 'afaire', label: 'A faire', count: 5, icon: '!' },
-  { key: 'encours', label: 'En cours', count: 5, icon: '↻' },
-  { key: 'terminees', label: 'Terminées', count: 7, icon: '✓' },
-];
-
-const TASKS = [
-  { id: 1, title: 'presentation de projet', date: "Aujourd'hui 5pm", priority: 'élevée', priorityColor: RED },
-  { id: 2, title: 'design ux', date: 'Demain 12am', priority: 'moyenne', priorityColor: '#d4a800' },
-];
-
-export default function MesTachesScreen() {
+export default function MesTachesPage() {
   const router = useRouter();
-  const [search, setSearch] = useState('');
-  const [activeTab, setActiveTab] = useState('afaire');
+  const [search, setSearch] = useState("");
 
-  const filteredTasks = TASKS.filter(t =>
-    t.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const tasks = {
+    aFaire: 5,
+    enCours: 5,
+    terminees: 7,
+  };
+
+  const upcomingTasks = [
+    {
+      id: 1,
+      title: "Présentation de projet",
+      date: "Aujourd'hui 5 pm",
+      priority: "Priorité élevée",
+      priorityColor: "#E53935",
+    },
+    {
+      id: 2,
+      title: "Design UX",
+      date: "Demain 12 am",
+      priority: "Priorité moyenne",
+      priorityColor: "#F9A825",
+    },
+  ];
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor={BG} />
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       {/* HEADER */}
-      <View style={styles.topBar}>
-        <Image source={require('../../assets/images/logoeceje.png')} style={styles.logo} />
-      </View>
-
-      {/* SEARCH */}
-      <View style={styles.searchBox}>
-        <TextInput
-          placeholder="chercher..."
-          value={search}
-          onChangeText={setSearch}
-          style={styles.searchInput}
+      <View style={styles.header}>
+        <Image
+          source={require("../../assets/images/logoeceje.png")}
+          style={styles.logo}
+          resizeMode="contain"
         />
+
+        <View style={styles.headerRight}>
+          <TouchableOpacity style={styles.iconBtn}>
+            <Ionicons
+              name="notifications-outline"
+              size={24}
+              color="black"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.iconBtn}
+            onPress={() => router.push("/(tabs)/menu")}
+          >
+            <Ionicons
+              name="menu"
+              size={28}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title}>Mes tâches</Text>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* BACK BUTTON */}
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => router.back()}
+        >
+          <Text style={styles.backArrow}>←</Text>
+        </TouchableOpacity>
 
-        {/* STATS */}
-        <View style={styles.statRow}>
-          {STATS.map(s => (
-            <TouchableOpacity
-              key={s.key}
-              style={[styles.statCard, activeTab === s.key && styles.statActive]}
-              onPress={() => setActiveTab(s.key)}
-            >
-              <Text style={styles.statText}>{s.label}</Text>
-              <Text>{s.count}</Text>
-            </TouchableOpacity>
-          ))}
+        {/* SEARCH BAR */}
+        <View style={styles.searchContainer}>
+          <Text style={styles.searchIcon}>🔍</Text>
+
+          <TextInput
+            style={styles.searchInput}
+            placeholder="chercher..."
+            placeholderTextColor="#999"
+            value={search}
+            onChangeText={setSearch}
+          />
         </View>
 
-        {/* TASKS */}
-        {filteredTasks.map(t => (
-          <View key={t.id} style={styles.taskCard}>
-            <View>
-              <Text style={styles.taskTitle}>{t.title}</Text>
-              <Text style={styles.taskDate}>{t.date}</Text>
+        {/* GREETING */}
+        <Text style={styles.greeting}>Bonjour Foulen !</Text>
+
+        {/* MES TÂCHES */}
+        <Text style={styles.sectionTitle}>Mes tâches</Text>
+
+        <View style={styles.taskCardsRow}>
+          {/* A faire */}
+          <View style={styles.taskCard}>
+            <View
+              style={[
+                styles.taskIconCircle,
+                { backgroundColor: "#E53935" },
+              ]}
+            >
+              <Text style={styles.taskIconText}>!</Text>
             </View>
-            <View style={[styles.badge, { backgroundColor: t.priorityColor }]}>
-              <Text style={{ color: '#fff' }}>{t.priority}</Text>
+
+            <Text style={styles.taskCardLabel}>À faire</Text>
+            <Text style={styles.taskCardCount}>
+              {tasks.aFaire}
+            </Text>
+          </View>
+
+          {/* En cours */}
+          <View style={styles.taskCard}>
+            <View
+              style={[
+                styles.taskIconCircle,
+                { backgroundColor: "#1565C0" },
+              ]}
+            >
+              <Text style={styles.taskIconText}>⟳</Text>
+            </View>
+
+            <Text style={styles.taskCardLabel}>En cours</Text>
+            <Text style={styles.taskCardCount}>
+              {tasks.enCours}
+            </Text>
+          </View>
+
+          {/* Terminées */}
+          <View style={styles.taskCard}>
+            <View
+              style={[
+                styles.taskIconCircle,
+                { backgroundColor: "#2E7D32" },
+              ]}
+            >
+              <Text style={styles.taskIconText}>✓</Text>
+            </View>
+
+            <Text style={styles.taskCardLabel}>Terminées</Text>
+            <Text style={styles.taskCardCount}>
+              {tasks.terminees}
+            </Text>
+          </View>
+        </View>
+
+        {/* TÂCHES À VENIR */}
+        <Text style={styles.sectionTitle}>Tâches à venir</Text>
+
+        {upcomingTasks.map((task) => (
+          <View key={task.id} style={styles.upcomingCard}>
+            <View style={styles.upcomingLeft}>
+              <Text style={styles.upcomingTitle}>
+                {task.title}
+              </Text>
+              <Text style={styles.upcomingDate}>
+                {task.date}
+              </Text>
+            </View>
+
+            <View
+              style={[
+                styles.priorityBadge,
+                {
+                  backgroundColor:
+                    task.priorityColor,
+                },
+              ]}
+            >
+              <Text style={styles.priorityText}>
+                {task.priority}
+              </Text>
             </View>
           </View>
         ))}
+
+        {/* NOTIFICATIONS */}
+        <Text style={styles.sectionTitle}>
+          Notifications
+        </Text>
+
+        <View style={styles.notificationCard}>
+          <TouchableOpacity style={styles.notifClose}>
+            <Text style={styles.notifCloseText}>
+              ⊗
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.notifText}>
+            Reminder : vous avez une{"\n"}
+            réunion aujourd'hui
+          </Text>
+        </View>
+
+        <View style={{ height: 20 }} />
       </ScrollView>
 
-      {/* NAV BAR */}
+      {/* TAB BAR */}
       <View style={styles.tabBar}>
-        <TouchableOpacity onPress={() => router.push('/calendrier')}>
-          <Image source={require('../../assets/images/calen.png')} style={styles.navIcon} />
+        <TouchableOpacity
+          onPress={() => router.push("/calendrier")}
+        >
+          <Image
+            source={require("../../assets/images/calen.png")}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/mestaches')}>
-          <Image source={require('../../assets/images/tache.png')} style={styles.navIcon} />
+        <TouchableOpacity
+          onPress={() => router.push("/mestaches")}
+        >
+          <Image
+            source={require("../../assets/images/tache.png")}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/page2')}>
-          <Image source={require('../../assets/images/home.png')} style={styles.navIcon} />
+        <TouchableOpacity
+          onPress={() => router.push("/page2")}
+        >
+          <Image
+            source={require("../../assets/images/home.png")}
+            style={[
+              styles.navIcon,
+              { width: 28, height: 28 },
+            ]}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/settings')}>
-          <Image source={require('../../assets/images/projectman.png')} style={styles.navIcon} />
+        <TouchableOpacity
+          onPress={() => router.push("/settings")}
+        >
+          <Image
+            source={require("../../assets/images/projectman.png")}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/profile')}>
-          <Image source={require('../../assets/images/user.png')} style={styles.navIcon} />
+        <TouchableOpacity
+          onPress={() => router.push("/profile")}
+        >
+          <Image
+            source={require("../../assets/images/user.png")}
+            style={styles.navIcon}
+            resizeMode="contain"
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -115,95 +271,214 @@ export default function MesTachesScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: BG },
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
-  topBar: {
-    alignItems: 'center',
-    padding: 10,
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#f0f0f0",
   },
 
   logo: {
-    width: 100,
-    height: 50,
+    width: 90,
+    height: 40,
   },
 
-  searchBox: {
-    backgroundColor: WHITE,
-    margin: 10,
-    padding: 10,
-    borderRadius: 10,
+  headerRight: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
-  searchInput: {
-    fontSize: 14,
+  iconBtn: {
+    marginLeft: 12,
+  },
+
+  scroll: {
+    flex: 1,
   },
 
   scrollContent: {
-    padding: 10,
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 100,
   },
 
-  title: {
+  backBtn: {
+    marginBottom: 10,
+  },
+
+  backArrow: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: NAVY,
-    marginBottom: 10,
+    color: "#333",
   },
 
-  statRow: {
-    flexDirection: 'row',
-    marginBottom: 10,
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical:
+      Platform.OS === "ios" ? 10 : 6,
+    marginBottom: 20,
   },
 
-  statCard: {
+  searchIcon: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+
+  searchInput: {
     flex: 1,
-    backgroundColor: WHITE,
-    padding: 10,
-    marginRight: 5,
-    borderRadius: 10,
-    alignItems: 'center',
+    fontSize: 15,
   },
 
-  statActive: {
-    backgroundColor: NAVY,
+  greeting: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#1A3050",
+    marginBottom: 20,
   },
 
-  statText: {
-    color: '#000',
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 12,
+  },
+
+  taskCardsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 24,
   },
 
   taskCard: {
-    backgroundColor: WHITE,
-    padding: 10,
-    borderRadius: 10,
+    flex: 1,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    padding: 14,
+    marginHorizontal: 4,
+    alignItems: "center",
+    elevation: 2,
+  },
+
+  taskIconCircle: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 8,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
 
-  taskTitle: {
-    fontWeight: 'bold',
+  taskIconText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 
-  taskDate: {
-    color: '#777',
+  taskCardLabel: {
+    fontSize: 13,
+    marginBottom: 4,
   },
 
-  badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+  taskCardCount: {
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+
+  upcomingCard: {
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    padding: 16,
+    marginBottom: 12,
+    elevation: 2,
+  },
+
+  upcomingLeft: {
+    marginBottom: 10,
+  },
+
+  upcomingTitle: {
+    fontSize: 15,
+    fontWeight: "bold",
+  },
+
+  upcomingDate: {
+    color: "#777",
+    marginTop: 4,
+  },
+
+  priorityBadge: {
+    alignSelf: "flex-start",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+  },
+
+  priorityText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+
+  notificationCard: {
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#E0E0E0",
+    padding: 18,
+    marginBottom: 20,
+    alignItems: "center",
+    position: "relative",
+  },
+
+  notifClose: {
+    position: "absolute",
+    top: 10,
+    right: 12,
+  },
+
+  notifCloseText: {
+    fontSize: 18,
+    color: "#999",
+  },
+
+  notifText: {
+    fontSize: 15,
+    color: "#1565C0",
+    textAlign: "center",
+    lineHeight: 22,
+    fontWeight: "600",
   },
 
   tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: RED,
-    padding: 10,
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: "#C60A0A",
+    height: 60,
+    borderRadius: 30,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
 
   navIcon: {
     width: 24,
     height: 24,
-    tintColor: 'white',
+    tintColor: "white",
   },
 });

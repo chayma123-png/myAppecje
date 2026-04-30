@@ -59,7 +59,26 @@ export default function Page2Screen() {
 
         <Text style={styles.welcomeText}>Bonjour Foulen !</Text>
 
-        {cards.map((card, index) => (
+        {/* 👉 Ligne qui change : clic sur "Mes tâches prioritaires" redirige vers /mestaches */}
+        <View style={styles.card}>
+          <View style={styles.cardLeft}>
+            <TouchableOpacity onPress={() => router.push('/mestaches')}>
+              <Text style={styles.cardTitle}>Mes tâches prioritaires</Text>
+            </TouchableOpacity>
+            <Text style={styles.cardSub}>2 tâches</Text>
+          </View>
+          <View style={styles.cardRight}>
+            <TouchableOpacity
+              style={styles.voirPlus}
+              onPress={() => router.push('/taches')}
+            >
+              <Text style={styles.voirPlusText}>voir plus</Text>
+              <Ionicons name="caret-forward" size={16} color="black" />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {cards.slice(1).map((card, index) => (
           <View key={index} style={styles.card}>
             <View style={styles.cardLeft}>
               <Text style={styles.cardTitle}>{card.title}</Text>
@@ -76,7 +95,6 @@ export default function Page2Screen() {
                   style={styles.cardIcon}
                 />
               )}
-
               <TouchableOpacity
                 style={styles.voirPlus}
                 onPress={() => router.push('/taches')}
@@ -91,7 +109,6 @@ export default function Page2Screen() {
 
       {/* TAB BAR – navigation vers toutes les pages */}
       <View style={styles.tabBar}>
-        {/* 👉 Clic sur l’icône calendrier ouvre la page /calendar */}
         <TouchableOpacity onPress={() => router.push('/calendrier')}>
           <Image
             source={require('../../assets/images/calen.png')}
@@ -136,7 +153,7 @@ export default function Page2Screen() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: {
     flexDirection: 'row',

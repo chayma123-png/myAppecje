@@ -1,27 +1,18 @@
 import React, { useState } from "react";
 import {
-  Image,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 import { useRouter } from "expo-router";
-
-import {
-  ArrowLeft,
-  Bell,
-  Menu,
-  Search,
-} from "lucide-react-native";
-
+import { ArrowLeft, Bell, Menu, Search } from "lucide-react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 
-/* ---------------- FRENCH CALENDAR CONFIG ---------------- */
+/* ---------------- FRENCH CONFIG ---------------- */
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -41,45 +32,15 @@ LocaleConfig.locales["fr"] = {
 
 LocaleConfig.defaultLocale = "fr";
 
-/* ---------------- TASK COMPONENT ---------------- */
-
-const TaskSection = ({
-  color,
-  title,
-  tasks,
-}: {
-  color: string;
-  title: string;
-  tasks: string[];
-}) => {
-  return (
-    <View style={styles.sectionWrapper}>
-      <View style={styles.sectionHeader}>
-        <View style={[styles.dot, { backgroundColor: color }]} />
-        <Text style={styles.sectionTitle}>{title}</Text>
-      </View>
-
-      {tasks.map((task, index) => (
-        <Text key={index} style={styles.taskItem}>
-          {"- " + task}
-        </Text>
-      ))}
-    </View>
-  );
-};
-
-/* ---------------- MAIN SCREEN ---------------- */
-
 export default function CalendarScreen() {
   const router = useRouter();
-  const [selected, setSelected] = useState("2023-05-18");
+  const [selected, setSelected] = useState("2026-04-30");
 
   return (
     <SafeAreaView style={styles.container}>
 
       {/* HEADER */}
       <View style={styles.header}>
-
         <TouchableOpacity onPress={() => router.back()}>
           <ArrowLeft color="black" size={24} />
         </TouchableOpacity>
@@ -88,231 +49,38 @@ export default function CalendarScreen() {
 
         <View style={styles.headerIcons}>
           <Bell color="black" size={24} style={{ marginRight: 15 }} />
-
-          <TouchableOpacity onPress={() => router.push("/menu")}>
-            <Menu color="black" size={24} />
-          </TouchableOpacity>
+          <Menu color="black" size={24} />
         </View>
-
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView>
 
         {/* SEARCH */}
         <View style={styles.searchContainer}>
-          <Search color="#888" size={20} style={styles.searchIcon} />
-          <TextInput
-            placeholder="chercher..."
-            style={styles.searchInput}
-            placeholderTextColor="#888"
-          />
+          <Search color="#888" size={20} style={{ marginRight: 10 }} />
+          <TextInput placeholder="chercher..." style={{ flex: 1 }} />
         </View>
 
         {/* CALENDAR */}
         <View style={styles.calendarCard}>
           <Calendar
-            onDayPress={(day) => setSelected(day.dateString)}
+
+            /* ✅ LINK TO ADDEVENT PAGE */
+            onDayPress={(day) =>
+              router.push(`/addevent?date=${day.dateString}`)
+            }
+
             markedDates={{
               [selected]: {
                 selected: true,
-                disableTouchEvent: true,
+                selectedColor: "#414BB2",
               },
             }}
-            theme={{
-              selectedDayBackgroundColor: "#414BB2",
-              selectedDayTextColor: "#ffffff",
-              todayTextColor: "#414BB2",
-              arrowColor: "#888",
-              monthTextColor: "black",
-              textMonthFontWeight: "bold",
-              textDayHeaderFontWeight: "600",
-              dayTextColor: "#2d4150",
-            }}
-          />
-        </View>
-
-        {/* TASKS */}
-        <View style={styles.tasksContainer}>
-          <TaskSection
-            color="red"
-            title="Aujourd'hui"
-            tasks={["Présentation projet"]}
-          />
-
-          <TaskSection
-            color="#FFD700"
-            title="Demain"
-            tasks={["Développement Frontend"]}
-          />
-
-          <TaskSection
-            color="#00C851"
-            title="Cette semaine"
-            tasks={["Tests & validation", "Base de données"]}
           />
         </View>
 
       </ScrollView>
 
-      {/* BOTTOM NAV */}
-      <View style={styles.bottomNav}>
-
-        <TouchableOpacity onPress={() => router.push("/calandrier")}>
-          <Image
-            source={require("../../assets/images/calen.png")}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Image
-            source={require("../../assets/images/tache.png")}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Image
-            source={require("../../assets/images/home.png")}
-            style={[styles.navIcon, { width: 28, height: 28 }]}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Image
-            source={require("../../assets/images/projectman.png")}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Image
-            source={require("../../assets/images/user.png")}
-            style={styles.navIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-
-      </View>
-
     </SafeAreaView>
   );
 }
-
-/* ---------------- STYLES ---------------- */
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-  },
-
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-  },
-
-  headerTitle: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#333",
-  },
-
-  headerIcons: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  searchContainer: {
-    flexDirection: "row",
-    backgroundColor: "#F0F0F0",
-    marginHorizontal: 20,
-    borderRadius: 25,
-    alignItems: "center",
-    paddingHorizontal: 15,
-    height: 45,
-    marginBottom: 20,
-  },
-
-  searchIcon: {
-    marginRight: 10,
-  },
-
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-  },
-
-  calendarCard: {
-    marginHorizontal: 15,
-    borderRadius: 10,
-    overflow: "hidden",
-    borderWidth: 1.5,
-    borderColor: "#3FA9FF",
-    backgroundColor: "white",
-    elevation: 4,
-  },
-
-  tasksContainer: {
-    backgroundColor: "#F7F8FC",
-    margin: 20,
-    borderRadius: 20,
-    padding: 20,
-    paddingBottom: 40,
-  },
-
-  sectionWrapper: {
-    marginBottom: 20,
-  },
-
-  sectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 5,
-  },
-
-  dot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 10,
-  },
-
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-
-  taskItem: {
-    fontSize: 15,
-    color: "#555",
-    marginLeft: 22,
-    marginTop: 2,
-  },
-
-  bottomNav: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
-    backgroundColor: "#C60A0A",
-    height: 60,
-    borderRadius: 30,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-
-  navIcon: {
-    width: 24,
-    height: 24,
-    tintColor: "white",
-  },
-});

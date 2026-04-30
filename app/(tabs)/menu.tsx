@@ -14,12 +14,12 @@ export default function MenuScreen() {
   const router = useRouter();
 
   const menuItems = [
-    { title: 'Taches', color: '#C41212', route: '/mestaches' },       // ✅ vers mestaches.tsx
-    { title: 'Calendrier', color: '#E31B23', route: '/calendrier' },  // ✅ vers calendrier.tsx
-    { title: 'Notification', color: '#1E5FA1', route: '/notification' }, // ✅ vers notification.tsx
-    { title: 'Profile', color: '#0A1128', route: '/profile' },        // ✅ garde le reste
+    { title: 'Taches', color: '#C41212', route: '/mestaches' },
+    { title: 'Calendrier', color: '#E31B23', route: '/calendrier' },
+    { title: 'Notification', color: '#1E5FA1', route: '/notification' },
+    { title: 'Profile', color: '#0A1128', route: '/profile' },
     { title: 'Projet', color: '#141B31', route: '/projet' },
-    { title: 'Événements', color: '#1B65B5', route: '/evenements' },
+    { title: 'Événements', color: '#1B65B5', route: '/event' },
     { title: 'Formation', color: '#C41212', route: '/formation' },
     { title: 'Tableau de bord', color: '#0A1128', route: '/dashboard' },
   ];
@@ -30,11 +30,13 @@ export default function MenuScreen() {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
+
         <Image
           source={require('../../assets/images/logoeceje.png')}
           style={styles.smallLogo}
           resizeMode="contain"
         />
+
         <View style={{ width: 24 }} />
       </View>
 
@@ -45,7 +47,7 @@ export default function MenuScreen() {
           <TouchableOpacity
             key={index}
             style={[styles.menuButton, { backgroundColor: item.color }]}
-            onPress={() => router.push(item.route)} // ✅ navigation
+            onPress={() => router.push(item.route)}
           >
             <Text style={styles.buttonText}>{item.title}</Text>
           </TouchableOpacity>
@@ -56,7 +58,11 @@ export default function MenuScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FFFFFF' },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -65,7 +71,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     height: 60,
   },
-  smallLogo: { width: 100, height: 40 },
+
+  smallLogo: {
+    width: 100,
+    height: 40,
+  },
+
   menuTitle: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -73,7 +84,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: '#000',
   },
-  scrollContent: { alignItems: 'center', paddingBottom: 30 },
+
+  scrollContent: {
+    alignItems: 'center',
+    paddingBottom: 30,
+  },
+
   menuButton: {
     width: '85%',
     height: 60,
@@ -88,6 +104,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+
   buttonText: {
     color: '#FFFFFF',
     fontSize: 20,
